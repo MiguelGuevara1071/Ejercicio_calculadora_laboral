@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora laboral</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <header>
+        <h1>
+            Calculadora laboral
+        </h1>
+        <p>¡Calcula tus prestaciones sociales!</p>
+    </header>
+
+    <section>
+        <h2>Tabajador tiempo completo</h2>
+        <form>
+            <div class="contenedor">
+                <label for="InputFechaInicio">
+                    1. Fecha de inicio del periodo a liquidar:
+                </label>
+                <input class="datos_input" id="InputFechaInicio" type="date" value="01/01/2022" min="01/01/2022"/>
+            </div>
+            
+            <div class="contenedor">
+                <label for="InputFechaFinal">
+                    2. Fecha final del periodo a liquidar:
+                </label>
+                <input class="datos_input" id="InputFechaFinal" type="date"/>
+            </div>
+
+            <div class="contenedor">
+                <label for="InputSalario">
+                    3. Ingrese el salario mensual:
+                </label>
+                <input class="datos_input" id="InputSalario" type="number" placeholder="1000000"/>
+            </div>
+            
+            <div class="contenedor">
+                <label for="InputTransporte">
+                    4. ¿Cuenta con auxilio de transporte?:
+                </label>
+                <div class="radios">
+                    <label class="radios_label">Si</label>
+                    <input id="InputTransporte1" type="radio" name="InputTransporte" value="Si"/>
+                    <label class="radios_label">No</label>
+                    <input id="InputTransporte2" type="radio" name="InputTransporte" value="No"/>
+                </div>
+            </div>
+            
+            <button class="botones" type="button" onclick="liquidarEmpleado()"> 
+                Liquidación para Empleado
+            </button>
+            <button class="botones" type="button" onclick="liquidarParaEmpleador()"> 
+                Liquidación para Empleador
+            </button>
+        </form>
+
+        <!-- Tabla liquidar empleado -->
+
+        <table id="tabla1">
+            <tr>
+                <td class="titulo_tabla" colspan="4">Datos de liquidación del empleado</td>
+            </tr>
+            <tr>
+                <td class="campo1"></td>
+                <td class="campo2">Periodo (DD-MM-AAAA):</td>
+                <td class="campo3"><span id="Fechas">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Dias laborados:</td>
+                <td><span id="Diaslaborados">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Salario:</td>
+                <td><span id="Salario">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Auxilio de transporte:</td>
+                <td><span id="Transporte">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td class="titulo_tabla" colspan="3">Prestaciones sociales en la liquidación del contrato de trabajo</td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Cesantias:</td>
+                <td><span id="Cesantias">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Intereses sobre cesantias:</td>
+                <td><span id="InteresesCesantias">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Prima primer semestre:</td>
+                <td><span id="Prima1">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Prima segundo semestre:</td>
+                <td><span id="Prima2">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Vacaciones:</td>
+                <td><span id="Vacaciones">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="titulo_tabla" >Total:</td>
+                <td><span id="Total">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+        </table>
+        
+        <!-- Tabla liquidacion para empleador -->
+
+        <table id="tabla2">
+            <tr>
+                <td class="campo1"></td>
+                <td class="campo2">Salario:</td>
+                <td class="campo3"><span id="SalarioEmpleador">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Auxilio de transporte:</td>
+                <td><span id="TransporteEmpleador">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td colspan="4"><p>&nbsp;</p></td>
+            </tr>
+            <tr>
+                <td class="titulo_tabla" colspan="3">Prestaciones sociales</td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Cesantias:</td>
+                <td><span id="CesantiasEmpleador">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Intereses sobre cesantias:</td>
+                <td><span id="InteresesCesantiasEmpleador">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Primas:</td>
+                <td><span id="PrimasEmpleador">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Vacaciones:</td>
+                <td><span id="VacacionesEmpleador">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td class="titulo_tabla" colspan="3">Parafiscales</td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Caja de compensacion familiar:</td>
+                <td><span id="CajaCompensacionEmpleador">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Icbf:</td>
+                <td><span id="IcbfEmpleador">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Sena:</td>
+                <td><span id="SenaEmpleador">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+            <tr>
+                <td colspan="4"><p>&nbsp;</p></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="titulo_tabla">Total:</td>
+                <td><span id="TotalEmpleador">0</span></td>
+                <td class="campo4"><span class="material-icons">help</span></td>
+            </tr>
+        </table>
+    
+    <script src="./calculadora.js"></script>
+</body>
+</html>
